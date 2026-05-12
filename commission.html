@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commission a Build — 4DK</title>
+  <meta name="description" content="Commission a custom keyboard build or modding service from 4DK. Tell us your board, switches, and what you're chasing.">
+  <link rel="icon" href="images/4dkminilogonobg.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      padding: var(--sp-9) 0 var(--sp-7);
+      border-bottom: 1px solid var(--rule);
+      background:
+        radial-gradient(ellipse at top right, rgba(255, 199, 88, 0.06), transparent 60%),
+        var(--bg);
+    }
+
+    .page-hero__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display-xl);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+
+    .page-hero__title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .page-hero__lede {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    /* ── COMMISSION LAYOUT ─────────────────────────────────── */
+    .commission {
+      padding: var(--sp-8) 0;
+    }
+
+    .commission__grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--sp-8);
+    }
+
+    .commission__form-area {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: var(--sp-7);
+      position: relative;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PLACEHOLDER for Tally — when Tally is ready, replace contents */
+    .form-placeholder {
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-5);
+      padding: var(--sp-7) var(--sp-4);
+    }
+
+    .form-placeholder__icon {
+      width: 80px;
+      height: 80px;
+      border: 1px dashed var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--yellow);
+      font-size: 2rem;
+    }
+
+    .form-placeholder__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .form-placeholder__desc {
+      color: var(--ink-mid);
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .form-placeholder__cta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      width: 100%;
+      max-width: 320px;
+    }
+
+    /* ── SIDE INFO ─────────────────────────────────────────── */
+    .commission__info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    .info-block {
+      padding: var(--sp-5);
+      background: var(--bg-elev-1);
+      border-left: 3px solid var(--yellow);
+      border-radius: 6px;
+    }
+
+    .info-block__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: var(--sp-3);
+    }
+
+    .info-block__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin-bottom: var(--sp-3);
+      text-transform: uppercase;
+    }
+
+    .info-block__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .info-block__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    .info-block__list li::before {
+      content: counter(item);
+      counter-increment: item;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      color: var(--yellow);
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0;
+    }
+
+    .info-block__list { counter-reset: item; }
+
+    @media (max-width: 880px) {
+      .commission__grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  <!-- ═══ PAGE HERO ═══════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="margin-bottom: var(--sp-4);">Start a Build</div>
+      <h1 class="page-hero__title">
+        Tell us what <em>you're chasing.</em>
+      </h1>
+      <p class="page-hero__lede">
+        Send us your board specs, switch preference, and the sound or feel
+        you're after. We'll come back with a quote, a timeline, and a plan
+        — usually within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ COMMISSION ══════════════════════════════════════════ -->
+<section class="commission">
+  <div class="container">
+    <div class="commission__grid">
+
+      <!-- ── FORM AREA ── -->
+      <div class="commission__form-area">
+
+        <iframe data-tally-src="https://tally.so/embed/WODQrk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" title="4DK Commission Form"></iframe>
+        <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+      </div>
+
+      <!-- ── SIDE INFO ── -->
+      <div class="commission__info">
+
+        <div class="info-block">
+          <div class="info-block__label">How it works</div>
+          <h3 class="info-block__title">From inquiry to typing</h3>
+          <ul class="info-block__list">
+            <li>Send your board specs and what you're chasing.</li>
+            <li>We quote within 24 hours with timeline.</li>
+            <li>Drop off at any of our four branches.</li>
+            <li>We build, document, and notify on completion.</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block__label">What to include</div>
+          <h3 class="info-block__title">Help us help you</h3>
+          <ul class="info-block__list">
+            <li>Board model, layout, and PCB type (hotswap or soldered).</li>
+            <li>Switch type — brand, model, count.</li>
+            <li>What you're chasing — thock, marble, clack, or muted.</li>
+            <li>Budget range if you have one in mind.</li>
+          </ul>
+        </div>
+
+        <div class="info-block" style="border-left-color: var(--ink-faint);">
+          <div class="info-block__label" style="color: var(--ink-mid);">Pricing reference</div>
+          <p style="font-size: 0.95rem; color: var(--ink-mid); line-height: 1.6; margin-bottom: var(--sp-4);">
+            Full pricing for every service is published openly — no quote
+            traps, no hidden fees. Check the menu before you reach out.
+          </p>
+          <a href="pricing.html" class="btn btn--ghost" style="font-size: 0.75rem;">
+            View Full Price List
+            <span class="btn__arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/components.js"></script>
+</body>
+</html>

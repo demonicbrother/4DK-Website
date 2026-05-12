@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback — 4DK</title>
+  <meta name="description" content="What past clients say about 4DK keyboard modding service. Leave your own feedback after your build.">
+  <link rel="icon" href="images/4dkminilogonobg.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      padding: var(--sp-9) 0 var(--sp-7);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-hero__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display-xl);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+
+    .page-hero__title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .page-hero__lede {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    /* ── STATS STRIP ───────────────────────────────────────── */
+    .stats {
+      background: var(--bg-elev-1);
+      border-bottom: 1px solid var(--rule);
+      padding: var(--sp-6) 0;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+      text-align: center;
+    }
+
+    .stat__value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--yellow);
+      margin-bottom: var(--sp-2);
+    }
+
+    .stat__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    @media (max-width: 720px) {
+      .stats__grid { grid-template-columns: 1fr; gap: var(--sp-4); }
+    }
+
+    /* ── REVIEWS GRID ──────────────────────────────────────── */
+    .reviews {
+      padding: var(--sp-8) 0;
+    }
+
+    .reviews__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+
+    .review {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      transition: all 0.25s var(--ease);
+      position: relative;
+    }
+
+    .review:hover {
+      border-color: var(--rule-accent);
+      transform: translateY(-3px);
+    }
+
+    .review__quote-mark {
+      position: absolute;
+      top: var(--sp-4);
+      right: var(--sp-5);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--yellow);
+      opacity: 0.2;
+    }
+
+    .review__stars {
+      display: flex;
+      gap: 2px;
+      color: var(--yellow);
+      font-size: 1rem;
+    }
+
+    .review__body {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      font-style: italic;
+      flex: 1;
+    }
+
+    .review__meta {
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .review__name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .review__detail {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    @media (max-width: 880px) {
+      .reviews__grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 881px) and (max-width: 1120px) {
+      .reviews__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── SUBMIT SECTION ────────────────────────────────────── */
+    .submit {
+      background: var(--bg-elev-1);
+      border-top: 1px solid var(--rule);
+      padding: var(--sp-8) 0;
+    }
+
+    .submit__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+    }
+
+    .submit__head {
+      text-align: center;
+      margin-bottom: var(--sp-7);
+    }
+
+    .submit__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display);
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    .submit__title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .submit__desc {
+      color: var(--ink-mid);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+    }
+
+    .rating-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .rating-group__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .rating-options {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+    }
+
+    .rating-option {
+      flex: 1;
+      min-width: 130px;
+      padding: var(--sp-5);
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s var(--ease);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+
+    .rating-option:hover {
+      border-color: var(--rule-accent);
+      background: var(--bg-elev-2);
+    }
+
+    .rating-option.is-selected {
+      border-color: var(--yellow);
+      background: rgba(255, 199, 88, 0.06);
+    }
+
+    .rating-option__icon {
+      font-size: 1.8rem;
+    }
+
+    .rating-option__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+
+    .rating-option.is-selected .rating-option__label {
+      color: var(--yellow);
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .form-field label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      padding: var(--sp-4);
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s var(--ease);
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+
+    .form-field textarea { min-height: 140px; }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: var(--ink-dim);
+    }
+
+    .form-submit {
+      display: flex;
+      gap: var(--sp-4);
+      justify-content: center;
+      align-items: center;
+      margin-top: var(--sp-3);
+    }
+
+    .form-note {
+      font-size: 0.85rem;
+      color: var(--ink-dim);
+      font-style: italic;
+    }
+
+    /* success state */
+    .submit-success {
+      display: none;
+      text-align: center;
+      padding: var(--sp-8) var(--sp-5);
+    }
+
+    .submit-success.is-visible { display: block; }
+
+    .submit-success__icon {
+      width: 70px;
+      height: 70px;
+      border: 1px solid var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--sp-5);
+      color: var(--yellow);
+      font-size: 1.8rem;
+    }
+
+    .submit-success__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    .submit-success__desc {
+      color: var(--ink-mid);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  <!-- ═══ PAGE HERO ═══════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="margin-bottom: var(--sp-4);">From The People We've Built For</div>
+      <h1 class="page-hero__title">
+        Word from the <em>workshop.</em>
+      </h1>
+      <p class="page-hero__lede">
+        Honest reactions from past clients. Read what they've said, then leave
+        your own after your next build.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ STATS ═══════════════════════════════════════════════ -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stat">
+          <div class="stat__value">200+</div>
+          <div class="stat__label">Builds Completed</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">4.9 ★</div>
+          <div class="stat__label">Average Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">3yrs</div>
+          <div class="stat__label">In Business</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ REVIEWS ═════════════════════════════════════════════ -->
+  <section class="reviews">
+    <div class="container">
+      <div class="reviews__grid">
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            Brought in a stock GMMK Pro and got it back sounding like a board three times the price. The thock is exactly what I asked for. Will be back for the next one.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— J. Reyes</span>
+            <span class="review__detail">Full Mod · TKL · 2025</span>
+          </div>
+        </article>
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            Switch lubing was clean, no bleed, no over-lube. They sent photos throughout the process which I really appreciated. Turnaround was 4 days as quoted.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— M. Santos</span>
+            <span class="review__detail">90 Switch Lube · 2025</span>
+          </div>
+        </article>
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            First time commissioning a full custom build and they walked me through every decision. Foam choice, lube type, stab tuning — all explained. Best decision I made for the hobby.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— A. Cruz</span>
+            <span class="review__detail">Custom Build · 65% · 2025</span>
+          </div>
+        </article>
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            Stab tuning fixed a rattle that's been bothering me for a year. They knew exactly what to do. Quick, cheap, professional.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— P. Dela Cruz</span>
+            <span class="review__detail">Stab Tuning · 2024</span>
+          </div>
+        </article>
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            Got the Tempest mod done on my QK65. Sound went from sharp and hollow to deep and full. Sent me before/after sound clips. Real craftsmen.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— R. Tan</span>
+            <span class="review__detail">Tempest Mod · 65% · 2024</span>
+          </div>
+        </article>
+
+        <article class="review">
+          <span class="review__quote-mark">"</span>
+          <div class="review__stars">★★★★★</div>
+          <p class="review__body">
+            Soldered 87 switches onto an FC980M with zero cold joints. Saved me from buying a hotswap PCB. Highly recommend for any soldering work in Metro Manila.
+          </p>
+          <div class="review__meta">
+            <span class="review__name">— K. Lim</span>
+            <span class="review__detail">Soldering · TKL · 2024</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SUBMIT FEEDBACK ═════════════════════════════════════ -->
+  <section class="submit">
+    <div class="submit__inner">
+
+      <div class="submit__head">
+        <div class="eyebrow" style="margin-bottom: var(--sp-4);">Leave Yours</div>
+        <h2 class="submit__title">Tell us how we <em>did.</em></h2>
+        <p class="submit__desc">
+          Just finished a build with us? Your honest take helps us improve and
+          helps future clients know what to expect.
+        </p>
+      </div>
+
+      <form class="feedback-form" id="feedbackForm">
+
+        <div class="rating-group">
+          <span class="rating-group__label">Overall Experience</span>
+          <div class="rating-options" id="ratingOptions">
+            <div class="rating-option" data-rating="unhappy">
+              <div class="rating-option__icon">😔</div>
+              <div class="rating-option__label">Unhappy</div>
+            </div>
+            <div class="rating-option" data-rating="neutral">
+              <div class="rating-option__icon">😐</div>
+              <div class="rating-option__label">Neutral</div>
+            </div>
+            <div class="rating-option is-selected" data-rating="satisfied">
+              <div class="rating-option__icon">😀</div>
+              <div class="rating-option__label">Satisfied</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="name">Your Name (optional)</label>
+          <input type="text" id="name" name="name" placeholder="How you'd like to be credited">
+        </div>
+
+        <div class="form-field">
+          <label for="service">Service Received</label>
+          <input type="text" id="service" name="service" placeholder="e.g. Full Mod · TKL · 2026">
+        </div>
+
+        <div class="form-field">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" placeholder="What did we do well? What could we improve?"></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn--primary">
+            Submit Feedback
+            <span class="btn__arrow">→</span>
+          </button>
+        </div>
+
+        <p class="form-note text-center">
+          Feedback is reviewed before being added to the public wall above.
+        </p>
+
+      </form>
+
+      <div class="submit-success" id="submitSuccess">
+        <div class="submit-success__icon">✓</div>
+        <h3 class="submit-success__title">Thank You</h3>
+        <p class="submit-success__desc">
+          Your feedback has been received. We review every submission and add
+          approved entries to the public wall within a few days. Your honest take
+          helps us get better.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    /* ── Rating selector ── */
+    document.querySelectorAll('.rating-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.rating-option').forEach(o => o.classList.remove('is-selected'));
+        opt.classList.add('is-selected');
+      });
+    });
+
+    /* ── Form submission ──
+       Currently shows local "thank you" state. Wire to Tally → Notion
+       (or any backend) by replacing the submit handler with a fetch call. */
+    document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = {
+        rating: document.querySelector('.rating-option.is-selected')?.dataset.rating || 'neutral',
+        name: document.getElementById('name').value,
+        service: document.getElementById('service').value,
+        message: document.getElementById('message').value,
+      };
+      // TODO: send `data` to your backend / Tally / Notion endpoint
+      console.log('Feedback submitted:', data);
+
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('submitSuccess').classList.add('is-visible');
+      document.getElementById('submitSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locations — 4DK</title>
+  <meta name="description" content="4DK keyboard modding branches across Metro Manila and beyond. Drop off in Pasig, Marikina, Cabanatuan, or Makati.">
+  <link rel="icon" href="images/4dkminilogonobg.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      padding: var(--sp-9) 0 var(--sp-7);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-hero__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display-xl);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+
+    .page-hero__title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .page-hero__lede {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    /* ── BRANCH GRID ───────────────────────────────────────── */
+    .branches {
+      padding: var(--sp-8) 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-5);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding-left: var(--sp-5);
+      padding-right: var(--sp-5);
+    }
+
+    .branch {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .branch:hover {
+      border-color: var(--rule-accent);
+      transform: translateY(-3px);
+    }
+
+    .branch__map {
+      width: 100%;
+      height: 220px;
+      border: none;
+      filter: grayscale(0.3) brightness(0.85);
+      background: var(--bg-elev-2);
+    }
+
+    .branch__body {
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      flex: 1;
+    }
+
+    .branch__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--sp-3);
+    }
+
+    .branch__name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .branch__tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      padding: 4px 10px;
+      border: 1px solid var(--rule-accent);
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .branch__address {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-mid);
+    }
+
+    .branch__details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--rule);
+      margin-top: auto;
+    }
+
+    .branch__detail {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+    }
+
+    .branch__detail svg {
+      width: 16px;
+      height: 16px;
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 880px) {
+      .branches { grid-template-columns: 1fr; }
+    }
+
+    /* ── CONTACT STRIP ─────────────────────────────────────── */
+    .contact-strip {
+      background: var(--bg-elev-1);
+      padding: var(--sp-8) 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-top: var(--sp-7);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: var(--sp-5);
+    }
+
+    .contact-card__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: var(--sp-3);
+    }
+
+    .contact-card__value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      transition: color 0.2s var(--ease);
+    }
+
+    .contact-card a.contact-card__value:hover {
+      color: var(--yellow);
+    }
+
+    @media (max-width: 720px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  <!-- ═══ PAGE HERO ═══════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="margin-bottom: var(--sp-4);">Four Branches · Greater Manila + North</div>
+      <h1 class="page-hero__title">
+        Drop off, <em>nearby.</em>
+      </h1>
+      <p class="page-hero__lede">
+        Hand your board to us in person at any of our four branches.
+        Each location accepts drop-offs and pickups during stated hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ BRANCH GRID ═════════════════════════════════════════ -->
+  <div class="branches">
+
+    <article class="branch">
+      <iframe class="branch__map"
+        src="https://www.google.com/maps?q=Pasig%20City%20Philippines&output=embed"
+        loading="lazy"
+        title="Pasig City map"></iframe>
+      <div class="branch__body">
+        <div class="branch__head">
+          <h2 class="branch__name">Pasig</h2>
+          <span class="branch__tag">Main HQ</span>
+        </div>
+        <p class="branch__address">
+          Pasig City, Metro Manila<br>
+          <em style="color: var(--ink-dim); font-style: normal; font-size: 0.85rem;">Exact address shared on booking confirmation</em>
+        </p>
+        <div class="branch__details">
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Mon–Sat · 10AM–7PM
+          </div>
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            +63 995 097 0464
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="branch">
+      <iframe class="branch__map"
+        src="https://www.google.com/maps?q=Marikina%20City%20Philippines&output=embed"
+        loading="lazy"
+        title="Marikina City map"></iframe>
+      <div class="branch__body">
+        <div class="branch__head">
+          <h2 class="branch__name">Marikina</h2>
+          <span class="branch__tag">Branch</span>
+        </div>
+        <p class="branch__address">
+          Marikina City, Metro Manila<br>
+          <em style="color: var(--ink-dim); font-style: normal; font-size: 0.85rem;">Exact address shared on booking confirmation</em>
+        </p>
+        <div class="branch__details">
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Mon–Sat · By appointment
+          </div>
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Message via Facebook
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="branch">
+      <iframe class="branch__map"
+        src="https://www.google.com/maps?q=Makati%20City%20Philippines&output=embed"
+        loading="lazy"
+        title="Makati City map"></iframe>
+      <div class="branch__body">
+        <div class="branch__head">
+          <h2 class="branch__name">Makati</h2>
+          <span class="branch__tag">Branch</span>
+        </div>
+        <p class="branch__address">
+          Makati City, Metro Manila<br>
+          <em style="color: var(--ink-dim); font-style: normal; font-size: 0.85rem;">Exact address shared on booking confirmation</em>
+        </p>
+        <div class="branch__details">
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Mon–Sat · By appointment
+          </div>
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Message via Facebook
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="branch">
+      <iframe class="branch__map"
+        src="https://www.google.com/maps?q=Cabanatuan%20City%20Philippines&output=embed"
+        loading="lazy"
+        title="Cabanatuan City map"></iframe>
+      <div class="branch__body">
+        <div class="branch__head">
+          <h2 class="branch__name">Cabanatuan</h2>
+          <span class="branch__tag">Northern Branch</span>
+        </div>
+        <p class="branch__address">
+          Cabanatuan City, Nueva Ecija<br>
+          <em style="color: var(--ink-dim); font-style: normal; font-size: 0.85rem;">Exact address shared on booking confirmation</em>
+        </p>
+        <div class="branch__details">
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            By appointment
+          </div>
+          <div class="branch__detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Message via Facebook
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ═══ CONTACT STRIP ═══════════════════════════════════════ -->
+  <section class="contact-strip">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-card__label">Phone</div>
+          <a href="tel:+639950970464" class="contact-card__value">+63 995 097 0464</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__label">Facebook</div>
+          <a href="https://www.facebook.com/4DudesKeyboard" target="_blank" rel="noopener" class="contact-card__value">/4DudesKeyboard</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__label">Commission</div>
+          <a href="commission.html" class="contact-card__value">Start Inquiry →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/components.js"></script>
+</body>
+</html>

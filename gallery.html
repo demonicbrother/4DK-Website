@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — 4DK</title>
+  <meta name="description" content="Recent keyboard builds and modding work by 4DK. Browse switches, layouts, and finishing details.">
+  <link rel="icon" href="images/4dkminilogonobg.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      padding: var(--sp-9) 0 var(--sp-7);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-hero__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display-xl);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+
+    .page-hero__title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .page-hero__lede {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    /* ── FILTERS ───────────────────────────────────────────── */
+    .filter-bar {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp-3);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .filter-btn {
+      padding: var(--sp-2) var(--sp-4);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .filter-btn:hover {
+      color: var(--ink);
+      border-color: var(--rule-strong);
+    }
+
+    .filter-btn.is-active {
+      color: var(--bg);
+      background: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    .filter-count {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    .filter-count span { color: var(--yellow); }
+
+    /* ── GRID ──────────────────────────────────────────────── */
+    .gallery {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--sp-7) var(--sp-5);
+    }
+
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: var(--sp-3);
+    }
+
+    .build-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      animation: fadeUp 0.5s var(--ease-out) both;
+    }
+
+    .build-card.tall { grid-row: span 2; }
+
+    .build-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .build-card:hover img { transform: scale(1.06); }
+
+    .build-card__overlay {
+      position: absolute;
+      inset: 0;
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: var(--sp-1);
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.88) 100%);
+      opacity: 0;
+      transition: opacity 0.3s var(--ease);
+    }
+
+    .build-card:hover .build-card__overlay { opacity: 1; }
+
+    .build-card__cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .build-card__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .build-card__desc {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+    }
+
+    .build-card__placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      color: var(--ink-faint);
+    }
+
+    .build-card__placeholder .icon {
+      font-size: 2rem;
+      color: var(--yellow-faint);
+    }
+
+    .build-card__placeholder .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    .build-card.hidden { display: none; }
+
+    @media (max-width: 880px) {
+      .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .gallery__grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+      .build-card.tall { grid-row: span 2; }
+    }
+
+    /* ── LIGHTBOX ──────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-6);
+      backdrop-filter: blur(20px);
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox__inner {
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .lightbox__img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox__meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+      padding: 0 var(--sp-2);
+    }
+
+    .lightbox__cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .lightbox__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .lightbox__desc {
+      color: var(--ink-mid);
+      font-size: 0.95rem;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: var(--sp-5);
+      right: var(--sp-5);
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 50%;
+      color: var(--ink);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s var(--ease);
+    }
+
+    .lightbox__close:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      transform: rotate(90deg);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  <!-- ═══ PAGE HERO ═══════════════════════════════════════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow" style="margin-bottom: var(--sp-4);">The Portfolio</div>
+      <h1 class="page-hero__title">
+        Every build, <em>documented.</em>
+      </h1>
+      <p class="page-hero__lede">
+        Browse recent work — by switch, by layout, by mod type. Click any
+        card for full-size detail. Photos are taken after final sound test.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ FILTER BAR ══════════════════════════════════════════ -->
+  <div class="filter-bar">
+    <button class="filter-btn is-active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="full-mod">Full Mod</button>
+    <button class="filter-btn" data-filter="switches">Switch Work</button>
+    <button class="filter-btn" data-filter="custom">Custom Build</button>
+    <button class="filter-btn" data-filter="repair">Repair</button>
+    <div class="filter-count"><span id="buildCount">0</span> builds</div>
+  </div>
+
+  <!-- ═══ GALLERY ═════════════════════════════════════════════ -->
+  <div class="gallery">
+    <div class="gallery__grid" id="gallery"></div>
+  </div>
+
+  <!-- ═══ LIGHTBOX ════════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+    <div class="lightbox__inner">
+      <img class="lightbox__img" id="lightboxImg" alt="">
+      <div class="lightbox__meta">
+        <span class="lightbox__cat" id="lightboxCat"></span>
+        <span class="lightbox__title" id="lightboxTitle"></span>
+        <span class="lightbox__desc" id="lightboxDesc"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-mount"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+  /* ───────────────────────────────────────────────────────────
+     YOUR BUILDS — edit this array to add/remove gallery entries.
+
+     1. Drop image files into the /images/ folder
+     2. Add one entry per build below.
+
+     FIELDS:
+       file      filename inside /images/. Case-sensitive.
+       category  'full-mod' | 'switches' | 'custom' | 'repair'
+       title     short build name (shown on hover and in lightbox)
+       desc      one-line description (switches, board, mods done)
+       tall      (optional) — true for portrait shots, spans 2 grid rows
+     ───────────────────────────────────────────────────────────── */
+
+  const builds = [
+    { file: '1stboard.png', category: 'full-mod', title: 'Abalone Knob TKL', desc: 'Full mod · Boba U4T · EVA + PE foam', tall: true },
+    { file: '2ndboard.png', category: 'full-mod', title: 'GMK Build', desc: 'Full mod · Gateron Oil Kings · Tempest mod' },
+    { file: '3rdboard.png', category: 'custom', title: 'Custom 65%', desc: 'Built from kit · Krytox 205g0 lubed' },
+    { file: '345064085_1053052838989633_7360629386046712730_n.png', category: 'full-mod', title: 'Build #4', desc: 'Full mod · Sound test passed' },
+    { file: '345240772_1414406586039449_9055293245465230409_n.png', category: 'switches', title: 'Switch Lube Batch', desc: '90 switches · Krytox 205g0' },
+    { file: '345415993_973704300476651_8994080807527216234_n.png', category: 'custom', title: 'Custom Assembly', desc: 'PCB · plate · switches · keycaps' },
+    { file: 'blue.jpg', category: 'custom', title: 'Blue Build', desc: 'Custom aluminum case · linear switches', tall: true },
+    { file: 'modding.jpg', category: 'full-mod', title: 'Mod in Progress', desc: 'Teardown stage · stab tuning' },
+  ];
+
+  const IMAGE_DIR = 'images';
+
+  // ── helpers ────────────────────────────────────
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  function categoryLabel(cat) {
+    return ({
+      'full-mod': 'Full Mod',
+      'switches': 'Switch Work',
+      'custom':   'Custom Build',
+      'repair':   'Repair',
+    })[cat] || cat;
+  }
+
+  function setCount(n) {
+    document.getElementById('buildCount').textContent = n;
+  }
+
+  // ── card builder ───────────────────────────────
+  function buildCard(b, i) {
+    const card = document.createElement('div');
+    card.className = 'build-card' + (b.tall ? ' tall' : '');
+    card.dataset.category = b.category;
+    card.style.animationDelay = (i * 0.04) + 's';
+    card.addEventListener('click', () => openLightbox(card));
+
+    // image with fallback
+    const img = document.createElement('img');
+    img.src = `${IMAGE_DIR}/${b.file}`;
+    img.alt = b.title || b.file;
+    img.loading = 'lazy';
+    img.onerror = () => {
+      const ph = document.createElement('div');
+      ph.className = 'build-card__placeholder';
+      ph.innerHTML = `
+        <span class="icon">⌨</span>
+        <span class="label">${escapeHtml(categoryLabel(b.category))} · pending</span>
+      `;
+      img.replaceWith(ph);
+    };
+    card.appendChild(img);
+
+    // hover overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'build-card__overlay';
+    overlay.innerHTML = `
+      <span class="build-card__cat">${escapeHtml(categoryLabel(b.category))}</span>
+      <span class="build-card__title">${escapeHtml(b.title || 'Untitled')}</span>
+      <span class="build-card__desc">${escapeHtml(b.desc || '')}</span>
+    `;
+    card.appendChild(overlay);
+
+    return card;
+  }
+
+  function buildGallery() {
+    const grid = document.getElementById('gallery');
+    grid.innerHTML = '';
+    builds.forEach((b, i) => grid.appendChild(buildCard(b, i)));
+    setCount(builds.length);
+  }
+
+  // ── filter ─────────────────────────────────────
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const filter = btn.dataset.filter;
+      let count = 0;
+      document.querySelectorAll('.build-card').forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+        if (match) count++;
+      });
+      setCount(count);
+    });
+  });
+
+  // ── lightbox ───────────────────────────────────
+  function openLightbox(card) {
+    const img = card.querySelector('img');
+    const title = card.querySelector('.build-card__title')?.textContent || '';
+    const cat   = card.querySelector('.build-card__cat')?.textContent || '';
+    const desc  = card.querySelector('.build-card__desc')?.textContent || '';
+    const lb    = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+
+    if (img && img.src) {
+      lbImg.src = img.src;
+      lbImg.style.display = 'block';
+    } else {
+      lbImg.style.display = 'none';
+    }
+    document.getElementById('lightboxTitle').textContent = title;
+    document.getElementById('lightboxCat').textContent = cat;
+    document.getElementById('lightboxDesc').textContent = desc;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ── init ───────────────────────────────────────
+  buildGallery();
+  </script>
+</body>
+</html>
