@@ -446,8 +446,12 @@
     }
 
     .lightbox__img {
-      width: 100%;
-      max-height: 78vh;
+      /* Constrain to natural aspect ratio within viewport limits.
+         Leaves ~180px of reserved space for padding + gap + meta + close button. */
+      max-width: 100%;
+      max-height: calc(100vh - 180px);
+      width: auto;
+      height: auto;
       object-fit: contain;
     }
 
@@ -493,11 +497,33 @@
       border: 1px solid var(--rule-strong);
       border-radius: 50%;
       color: var(--ink);
-      font-size: 1.4rem;
+      font-size: 0;             /* hide the × text from the HTML */
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s var(--ease);
+    }
+
+    /* Draw two perfectly centered lines instead of using a font character,
+       so rotation pivots around true geometric center. */
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 1.5px;
+      background: currentColor;
+      transform-origin: center;
+    }
+
+    .lightbox__close::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .lightbox__close::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
 
     .lightbox__close:hover {
@@ -616,7 +642,6 @@
       switches: 'Outemu Reds',
       mods: 'Full mod · EVA + PE foam · Tempest'
     },
-    
   ];
 
   const IMAGE_DIR = 'images';
