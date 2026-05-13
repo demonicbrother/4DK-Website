@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery — 4DK</title>
-  <meta name="description" content="Recent keyboard builds and modding work by 4DK. Browse switches, layouts, and finishing details.">
+  <meta name="description" content="Sound tests and images from recent 4DK keyboard builds. Hear how each board came out.">
   <link rel="icon" href="images/4dkminilogonobg.png">
   <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -25,10 +25,7 @@
       margin-bottom: var(--sp-4);
     }
 
-    .page-hero__title em {
-      font-style: normal;
-      color: var(--yellow);
-    }
+    .page-hero__title em { font-style: normal; color: var(--yellow); }
 
     .page-hero__lede {
       font-size: 1.1rem;
@@ -37,69 +34,140 @@
       line-height: 1.65;
     }
 
-    /* ── FILTERS ───────────────────────────────────────────── */
-    .filter-bar {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: var(--sp-6) var(--sp-5);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: var(--sp-3);
+    /* ── TABS ──────────────────────────────────────────────── */
+    .tabs-wrap {
       border-bottom: 1px solid var(--rule);
+      background: var(--bg);
     }
 
-    .filter-btn {
-      padding: var(--sp-2) var(--sp-4);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: var(--fs-eyebrow);
-      letter-spacing: 0.18em;
+    .tabs {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+      display: flex;
+      gap: var(--sp-2);
+    }
+
+    .tab {
+      position: relative;
+      padding: var(--sp-5) var(--sp-5);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink-dim);
-      background: transparent;
-      border: 1px solid var(--rule);
+      transition: color 0.2s var(--ease);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .tab:hover { color: var(--ink); }
+
+    .tab.is-active { color: var(--yellow); }
+
+    .tab.is-active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--yellow);
+    }
+
+    .tab__count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+      background: var(--bg-elev-2);
+      padding: 2px 8px;
       border-radius: 999px;
-      cursor: pointer;
       transition: all 0.2s var(--ease);
     }
 
-    .filter-btn:hover {
-      color: var(--ink);
-      border-color: var(--rule-strong);
+    .tab.is-active .tab__count {
+      color: var(--yellow);
+      background: rgba(255, 199, 88, 0.12);
     }
 
-    .filter-btn.is-active {
-      color: var(--bg);
-      background: var(--yellow);
-      border-color: var(--yellow);
+    @media (max-width: 540px) {
+      .tab {
+        flex: 1;
+        justify-content: center;
+        font-size: 1.1rem;
+        padding: var(--sp-4) var(--sp-3);
+      }
     }
 
-    .filter-count {
-      margin-left: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: var(--fs-eyebrow);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-dim);
-    }
-
-    .filter-count span { color: var(--yellow); }
-
-    /* ── GRID ──────────────────────────────────────────────── */
-    .gallery {
+    /* ── TAB PANELS ────────────────────────────────────────── */
+    .tab-panel {
       max-width: var(--container-max);
       margin: 0 auto;
-      padding: var(--sp-7) var(--sp-5);
+      padding: var(--sp-7) var(--sp-5) var(--sp-8);
+      display: none;
+      animation: fadeIn 0.3s var(--ease-out);
     }
 
-    .gallery__grid {
+    .tab-panel.is-active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-head {
+      margin-bottom: var(--sp-7);
+      max-width: 640px;
+    }
+
+    .panel-head__eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: var(--sp-3);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .panel-head__eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--yellow);
+    }
+
+    .panel-head__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-display);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    .panel-head__desc {
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    /* ── IMAGE GRID ────────────────────────────────────────── */
+    .image-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-auto-rows: 280px;
       gap: var(--sp-3);
     }
 
-    .build-card {
+    .image-card {
       position: relative;
       overflow: hidden;
       border-radius: 8px;
@@ -109,18 +177,18 @@
       animation: fadeUp 0.5s var(--ease-out) both;
     }
 
-    .build-card.tall { grid-row: span 2; }
+    .image-card.tall { grid-row: span 2; }
 
-    .build-card img {
+    .image-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s var(--ease);
     }
 
-    .build-card:hover img { transform: scale(1.06); }
+    .image-card:hover img { transform: scale(1.06); }
 
-    .build-card__overlay {
+    .image-card__overlay {
       position: absolute;
       inset: 0;
       padding: var(--sp-5);
@@ -133,30 +201,23 @@
       transition: opacity 0.3s var(--ease);
     }
 
-    .build-card:hover .build-card__overlay { opacity: 1; }
+    .image-card:hover .image-card__overlay { opacity: 1; }
 
-    .build-card__cat {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: var(--fs-eyebrow);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
-    }
-
-    .build-card__title {
+    .image-card__title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       letter-spacing: 0.04em;
       color: var(--ink);
       text-transform: uppercase;
     }
 
-    .build-card__desc {
+    .image-card__desc {
       font-size: 0.85rem;
       color: var(--ink-mid);
+      line-height: 1.4;
     }
 
-    .build-card__placeholder {
+    .image-card__placeholder {
       width: 100%;
       height: 100%;
       display: flex;
@@ -164,15 +225,14 @@
       align-items: center;
       justify-content: center;
       gap: var(--sp-2);
-      color: var(--ink-faint);
     }
 
-    .build-card__placeholder .icon {
+    .image-card__placeholder .icon {
       font-size: 2rem;
       color: var(--yellow-faint);
     }
 
-    .build-card__placeholder .label {
+    .image-card__placeholder .label {
       font-family: 'JetBrains Mono', monospace;
       font-size: var(--fs-eyebrow);
       letter-spacing: 0.22em;
@@ -180,14 +240,177 @@
       color: var(--ink-dim);
     }
 
-    .build-card.hidden { display: none; }
-
     @media (max-width: 880px) {
-      .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+      .image-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 540px) {
-      .gallery__grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-      .build-card.tall { grid-row: span 2; }
+      .image-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    }
+
+    /* ── SOUND GRID ────────────────────────────────────────── */
+    .sound-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-5);
+    }
+
+    .sound-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      display: flex;
+      flex-direction: column;
+      animation: fadeUp 0.5s var(--ease-out) both;
+    }
+
+    .sound-card:hover {
+      border-color: var(--rule-accent);
+      transform: translateY(-3px);
+    }
+
+    .sound-card.is-pending { cursor: default; }
+    .sound-card.is-pending:hover { transform: none; }
+
+    .sound-card__thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--bg-elev-2);
+    }
+
+    .sound-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .sound-card:hover:not(.is-pending) .sound-card__thumb img {
+      transform: scale(1.04);
+    }
+
+    .sound-card__play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.35);
+      transition: background 0.25s var(--ease);
+    }
+
+    .sound-card:hover:not(.is-pending) .sound-card__play {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .sound-card__play-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s var(--ease);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .sound-card:hover:not(.is-pending) .sound-card__play-icon {
+      transform: scale(1.1);
+    }
+
+    .sound-card__play-icon::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 14px 0 14px 22px;
+      border-color: transparent transparent transparent var(--bg);
+      margin-left: 5px;
+    }
+
+    .sound-card__pending {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-3);
+    }
+
+    .sound-card__pending-icon {
+      width: 56px;
+      height: 56px;
+      border: 1px dashed var(--yellow-faint);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--yellow-faint);
+      font-size: 1.5rem;
+      padding-left: 4px;
+    }
+
+    .sound-card__pending-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    .sound-card__body {
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      flex: 1;
+    }
+
+    .sound-card__title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .sound-card__meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      margin-top: auto;
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--rule);
+    }
+
+    .sound-card__meta-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: var(--sp-3);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .sound-card__meta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      padding-top: 2px;
+    }
+
+    .sound-card__meta-value { color: var(--ink-mid); }
+
+    @media (max-width: 720px) {
+      .sound-grid { grid-template-columns: 1fr; }
     }
 
     /* ── LIGHTBOX ──────────────────────────────────────────── */
@@ -206,34 +429,49 @@
     .lightbox.open { display: flex; }
 
     .lightbox__inner {
-      max-width: 1100px;
+      max-width: 960px;
       width: 100%;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: var(--sp-4);
+      overflow-y: auto;
+    }
+
+    .lightbox__img,
+    .lightbox__video {
+      border-radius: 8px;
+      display: none;
     }
 
     .lightbox__img {
       width: 100%;
       max-height: 78vh;
       object-fit: contain;
-      border-radius: 8px;
     }
 
+    .lightbox__video {
+      /* Size video based on AVAILABLE viewport height so 16/9 aspect ratio
+         is preserved AND the meta strip below stays visible.
+         Calculation: leave ~180px for padding + gap + meta + close button.
+         Width is capped at min(parent width, height-derived width). */
+      width: min(100%, calc((100vh - 180px) * 16 / 9));
+      aspect-ratio: 16 / 9;
+      border: none;
+      background: var(--bg-elev-2);
+    }
+
+    .lightbox.is-image .lightbox__img { display: block; }
+    .lightbox.is-video .lightbox__video { display: block; }
+
     .lightbox__meta {
+      width: 100%;
+      max-width: 800px;
       display: flex;
       flex-direction: column;
       gap: var(--sp-1);
       padding: 0 var(--sp-2);
-    }
-
-    .lightbox__cat {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: var(--fs-eyebrow);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
     }
 
     .lightbox__title {
@@ -244,10 +482,7 @@
       text-transform: uppercase;
     }
 
-    .lightbox__desc {
-      color: var(--ink-mid);
-      font-size: 0.95rem;
-    }
+    .lightbox__desc { color: var(--ink-mid); font-size: 0.95rem; }
 
     .lightbox__close {
       position: absolute;
@@ -270,7 +505,6 @@
       color: var(--yellow);
       transform: rotate(90deg);
     }
-
   </style>
 </head>
 <body>
@@ -282,28 +516,53 @@
     <div class="container">
       <div class="eyebrow" style="margin-bottom: var(--sp-4);">The Portfolio</div>
       <h1 class="page-hero__title">
-        Every build, <em>documented.</em>
+        Hear the <em>difference.</em>
       </h1>
       <p class="page-hero__lede">
-        Browse recent work — by switch, by layout, by mod type. Click any
-        card for full-size detail. Photos are taken after final sound test.
+        Recent commissions, recorded after the final mod. Listen to how each
+        build came out — the board, the switches, the work behind the sound.
       </p>
     </div>
   </section>
 
-  <!-- ═══ FILTER BAR ══════════════════════════════════════════ -->
-  <div class="filter-bar">
-    <button class="filter-btn is-active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="full-mod">Full Mod</button>
-    <button class="filter-btn" data-filter="switches">Switch Work</button>
-    <button class="filter-btn" data-filter="custom">Custom Build</button>
-    <button class="filter-btn" data-filter="repair">Repair</button>
-    <div class="filter-count"><span id="buildCount">0</span> builds</div>
+  <!-- ═══ TABS ════════════════════════════════════════════════ -->
+  <div class="tabs-wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="sound" role="tab" aria-selected="true">
+        Sound Tests <span class="tab__count" id="soundTabCount">0</span>
+      </button>
+      <button class="tab" data-tab="images" role="tab" aria-selected="false">
+        Images <span class="tab__count" id="imageTabCount">0</span>
+      </button>
+    </div>
   </div>
 
-  <!-- ═══ GALLERY ═════════════════════════════════════════════ -->
-  <div class="gallery">
-    <div class="gallery__grid" id="gallery"></div>
+  <!-- ═══ SOUND TESTS PANEL (default) ═════════════════════════ -->
+  <div class="tab-panel is-active" data-panel="sound" role="tabpanel">
+    <div class="panel-head">
+      <div class="panel-head__eyebrow">Sound</div>
+      <h2 class="panel-head__title">What they actually sound like.</h2>
+      <p class="panel-head__desc">
+        Recorded after the final mod. Each test names the board, the switches,
+        and the work that shaped the sound.
+      </p>
+    </div>
+
+    <div class="sound-grid" id="soundGrid"></div>
+  </div>
+
+  <!-- ═══ IMAGES PANEL ════════════════════════════════════════ -->
+  <div class="tab-panel" data-panel="images" role="tabpanel">
+    <div class="panel-head">
+      <div class="panel-head__eyebrow">Images</div>
+      <h2 class="panel-head__title">Finished work.</h2>
+      <p class="panel-head__desc">
+        Photographed after final sound test. Hover any card for build details,
+        click for full size.
+      </p>
+    </div>
+
+    <div class="image-grid" id="imageGrid"></div>
   </div>
 
   <!-- ═══ LIGHTBOX ════════════════════════════════════════════ -->
@@ -311,8 +570,8 @@
     <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
     <div class="lightbox__inner">
       <img class="lightbox__img" id="lightboxImg" alt="">
+      <iframe class="lightbox__video" id="lightboxVideo" allow="autoplay; encrypted-media" allowfullscreen title="Sound test"></iframe>
       <div class="lightbox__meta">
-        <span class="lightbox__cat" id="lightboxCat"></span>
         <span class="lightbox__title" id="lightboxTitle"></span>
         <span class="lightbox__desc" id="lightboxDesc"></span>
       </div>
@@ -323,29 +582,41 @@
 
   <script src="assets/js/components.js"></script>
   <script>
-  /* ───────────────────────────────────────────────────────────
-     YOUR BUILDS — edit this array to add/remove gallery entries.
-
-     1. Drop image files into the /images/ folder
-     2. Add one entry per build below.
+  /* ─────────────────────────────────────────────────────────────
+     IMAGES — edit this array to add/remove gallery images.
 
      FIELDS:
-       file      filename inside /images/. Case-sensitive.
-       category  'full-mod' | 'switches' | 'custom' | 'repair'
-       title     short build name (shown on hover and in lightbox)
-       desc      one-line description (switches, board, mods done)
-       tall      (optional) — true for portrait shots, spans 2 grid rows
+       file   filename inside /images/ folder. Case-sensitive.
+       title  short build name (shown on hover and in lightbox)
+       desc   build details (board, switches, mods done)
+       tall   (optional) — true for portrait shots, spans 2 grid rows
      ───────────────────────────────────────────────────────────── */
+  const images = [
+    { file: '3rdboard.png', title: 'Reddragon Fizz | Full Mod', desc: 'Reddragon Fizz, Outemu Reds, Full Mod [Foam Mod, Tuned Stabs, Lubed Switches]' },
+    { file: '2ndboard.png', title: 'GMK Build',        desc: 'Gateron Oil Kings · Full mod' },
+    { file: '1stboard.png', title: 'Custom 65%',       desc: 'Krytox 205g0 · Built from kit' },
+  ];
 
-  const builds = [
-    { file: '1stboard.png', category: 'full-mod', title: 'Abalone Knob TKL', desc: 'Full mod · Boba U4T · EVA + PE foam', tall: true },
-    { file: '2ndboard.png', category: 'full-mod', title: 'GMK Build', desc: 'Full mod · Gateron Oil Kings · Tempest mod' },
-    { file: '3rdboard.png', category: 'custom', title: 'Custom 65%', desc: 'Built from kit · Krytox 205g0 lubed' },
-    { file: '345064085_1053052838989633_7360629386046712730_n.png', category: 'full-mod', title: 'Build #4', desc: 'Full mod · Sound test passed' },
-    { file: '345240772_1414406586039449_9055293245465230409_n.png', category: 'switches', title: 'Switch Lube Batch', desc: '90 switches · Krytox 205g0' },
-    { file: '345415993_973704300476651_8994080807527216234_n.png', category: 'custom', title: 'Custom Assembly', desc: 'PCB · plate · switches · keycaps' },
-    { file: 'blue.jpg', category: 'custom', title: 'Blue Build', desc: 'Custom aluminum case · linear switches', tall: true },
-    { file: 'modding.jpg', category: 'full-mod', title: 'Mod in Progress', desc: 'Teardown stage · stab tuning' },
+  /* ─────────────────────────────────────────────────────────────
+     SOUND TESTS — edit this array to add YouTube sound tests.
+
+     FIELDS:
+       videoId   YouTube video ID (the part after watch?v= in the URL).
+                 Set to null for "in production" placeholder cards.
+       title     name of the build / sound test
+       board     board model and layout
+       switches  switch type used
+       mods      what work was done (lube, foam, stab tuning, etc.)
+     ───────────────────────────────────────────────────────────── */
+  const videos = [
+    {
+      videoId: 'pj2eeqoEtBk',
+      title: 'Full Mod GK61 · 60%',
+      board: 'Custom 60%',
+      switches: 'Outemu Reds',
+      mods: 'Full mod · EVA + PE foam · Tempest'
+    },
+    
   ];
 
   const IMAGE_DIR = 'images';
@@ -357,116 +628,185 @@
     }[c]));
   }
 
-  function categoryLabel(cat) {
-    return ({
-      'full-mod': 'Full Mod',
-      'switches': 'Switch Work',
-      'custom':   'Custom Build',
-      'repair':   'Repair',
-    })[cat] || cat;
+  function ytThumbnail(id) {
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   }
 
-  function setCount(n) {
-    document.getElementById('buildCount').textContent = n;
+  function ytEmbedUrl(id) {
+    // Maximum branding suppression while keeping playback controls.
+    //   modestbranding=1   removes the YouTube logo from the control bar
+    //   rel=0              limits end-screen suggestions to same channel
+    //   iv_load_policy=3   hides annotations
+    //   fs=1               keeps fullscreen button available
+    //   controls=1         keeps play/pause/scrub/volume
+    //   playsinline=1      prevents forced fullscreen on mobile Safari
+    // Note: YouTube no longer allows hiding the title/channel overlay that
+    // appears at video start and on pause — they deprecated showinfo=0 in 2018.
+    const params = 'autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&fs=1&controls=1&playsinline=1';
+    return `https://www.youtube-nocookie.com/embed/${id}?${params}`;
   }
 
-  // ── card builder ───────────────────────────────
-  function buildCard(b, i) {
+  // ── IMAGE CARDS ────────────────────────────────
+  function buildImageCard(img, i) {
     const card = document.createElement('div');
-    card.className = 'build-card' + (b.tall ? ' tall' : '');
-    card.dataset.category = b.category;
+    card.className = 'image-card' + (img.tall ? ' tall' : '');
     card.style.animationDelay = (i * 0.04) + 's';
-    card.addEventListener('click', () => openLightbox(card));
+    card.addEventListener('click', () => openImageLightbox(img));
 
-    // image with fallback
-    const img = document.createElement('img');
-    img.src = `${IMAGE_DIR}/${b.file}`;
-    img.alt = b.title || b.file;
-    img.loading = 'lazy';
-    img.onerror = () => {
+    const imgEl = document.createElement('img');
+    imgEl.src = `${IMAGE_DIR}/${img.file}`;
+    imgEl.alt = img.title || img.file;
+    imgEl.loading = 'lazy';
+    imgEl.onerror = () => {
       const ph = document.createElement('div');
-      ph.className = 'build-card__placeholder';
+      ph.className = 'image-card__placeholder';
       ph.innerHTML = `
         <span class="icon">⌨</span>
-        <span class="label">${escapeHtml(categoryLabel(b.category))} · pending</span>
+        <span class="label">image pending</span>
       `;
-      img.replaceWith(ph);
+      imgEl.replaceWith(ph);
     };
-    card.appendChild(img);
+    card.appendChild(imgEl);
 
-    // hover overlay
     const overlay = document.createElement('div');
-    overlay.className = 'build-card__overlay';
+    overlay.className = 'image-card__overlay';
     overlay.innerHTML = `
-      <span class="build-card__cat">${escapeHtml(categoryLabel(b.category))}</span>
-      <span class="build-card__title">${escapeHtml(b.title || 'Untitled')}</span>
-      <span class="build-card__desc">${escapeHtml(b.desc || '')}</span>
+      <span class="image-card__title">${escapeHtml(img.title || 'Untitled')}</span>
+      <span class="image-card__desc">${escapeHtml(img.desc || '')}</span>
     `;
     card.appendChild(overlay);
 
     return card;
   }
 
-  function buildGallery() {
-    const grid = document.getElementById('gallery');
-    grid.innerHTML = '';
-    builds.forEach((b, i) => grid.appendChild(buildCard(b, i)));
-    setCount(builds.length);
+  // ── SOUND CARDS ────────────────────────────────
+  function buildSoundCard(v, i) {
+    const card = document.createElement('div');
+    const isPending = !v.videoId;
+    card.className = 'sound-card' + (isPending ? ' is-pending' : '');
+    card.style.animationDelay = (i * 0.06) + 's';
+
+    if (!isPending) {
+      card.addEventListener('click', () => openVideoLightbox(v));
+    }
+
+    const thumb = document.createElement('div');
+    thumb.className = 'sound-card__thumb';
+
+    if (isPending) {
+      thumb.innerHTML = `
+        <div class="sound-card__pending">
+          <div class="sound-card__pending-icon">▶</div>
+          <div class="sound-card__pending-label">In Production</div>
+        </div>
+      `;
+    } else {
+      thumb.innerHTML = `
+        <img src="${ytThumbnail(v.videoId)}" alt="${escapeHtml(v.title)}" loading="lazy"
+             onerror="this.style.display='none'">
+        <div class="sound-card__play"><div class="sound-card__play-icon"></div></div>
+      `;
+    }
+    card.appendChild(thumb);
+
+    const body = document.createElement('div');
+    body.className = 'sound-card__body';
+    body.innerHTML = `
+      <div class="sound-card__title">${escapeHtml(v.title)}</div>
+      <div class="sound-card__meta">
+        <div class="sound-card__meta-row">
+          <span class="sound-card__meta-label">Board</span>
+          <span class="sound-card__meta-value">${escapeHtml(v.board || '—')}</span>
+        </div>
+        <div class="sound-card__meta-row">
+          <span class="sound-card__meta-label">Switches</span>
+          <span class="sound-card__meta-value">${escapeHtml(v.switches || '—')}</span>
+        </div>
+        <div class="sound-card__meta-row">
+          <span class="sound-card__meta-label">Mods</span>
+          <span class="sound-card__meta-value">${escapeHtml(v.mods || '—')}</span>
+        </div>
+      </div>
+    `;
+    card.appendChild(body);
+
+    return card;
   }
 
-  // ── filter ─────────────────────────────────────
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const filter = btn.dataset.filter;
-      let count = 0;
-      document.querySelectorAll('.build-card').forEach(card => {
-        const match = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('hidden', !match);
-        if (match) count++;
+  // ── BUILD GRIDS ────────────────────────────────
+  function buildGrids() {
+    const imageGrid = document.getElementById('imageGrid');
+    const soundGrid = document.getElementById('soundGrid');
+
+    imageGrid.innerHTML = '';
+    soundGrid.innerHTML = '';
+
+    images.forEach((img, i) => imageGrid.appendChild(buildImageCard(img, i)));
+    videos.forEach((v, i) => soundGrid.appendChild(buildSoundCard(v, i)));
+
+    document.getElementById('imageTabCount').textContent = images.length;
+    document.getElementById('soundTabCount').textContent = videos.filter(v => v.videoId).length;
+  }
+
+  // ── TAB SWITCHING ──────────────────────────────
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+
+      // Update tab states
+      document.querySelectorAll('.tab').forEach(t => {
+        const isActive = t === tab;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
-      setCount(count);
+
+      // Update panel visibility (re-trigger fade animation by toggling class)
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('is-active', panel.dataset.panel === target);
+      });
     });
   });
 
-  // ── lightbox ───────────────────────────────────
-  function openLightbox(card) {
-    const img = card.querySelector('img');
-    const title = card.querySelector('.build-card__title')?.textContent || '';
-    const cat   = card.querySelector('.build-card__cat')?.textContent || '';
-    const desc  = card.querySelector('.build-card__desc')?.textContent || '';
-    const lb    = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightboxImg');
+  // ── LIGHTBOX ───────────────────────────────────
+  const lb       = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightboxImg');
+  const lbVideo  = document.getElementById('lightboxVideo');
+  const lbTitle  = document.getElementById('lightboxTitle');
+  const lbDesc   = document.getElementById('lightboxDesc');
 
-    if (img && img.src) {
-      lbImg.src = img.src;
-      lbImg.style.display = 'block';
-    } else {
-      lbImg.style.display = 'none';
-    }
-    document.getElementById('lightboxTitle').textContent = title;
-    document.getElementById('lightboxCat').textContent = cat;
-    document.getElementById('lightboxDesc').textContent = desc;
-    lb.classList.add('open');
+  function openImageLightbox(img) {
+    lb.classList.remove('is-video');
+    lb.classList.add('open', 'is-image');
+    lbImg.src = `${IMAGE_DIR}/${img.file}`;
+    lbVideo.src = '';
+    lbTitle.textContent = img.title || '';
+    lbDesc.textContent = img.desc || '';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openVideoLightbox(v) {
+    lb.classList.remove('is-image');
+    lb.classList.add('open', 'is-video');
+    lbImg.src = '';
+    lbVideo.src = ytEmbedUrl(v.videoId);
+    lbTitle.textContent = v.title || '';
+    lbDesc.textContent = `${v.board || ''} · ${v.switches || ''} · ${v.mods || ''}`;
     document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
+    lb.classList.remove('open', 'is-image', 'is-video');
+    lbImg.src = '';
+    lbVideo.src = ''; // kills video audio on close
     document.body.style.overflow = '';
   }
 
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-  document.getElementById('lightbox').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeLightbox();
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-  });
+  lb.addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  // ── init ───────────────────────────────────────
-  buildGallery();
+  // ── INIT ───────────────────────────────────────
+  buildGrids();
   </script>
 </body>
 </html>
