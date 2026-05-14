@@ -24,7 +24,6 @@
       <div class="nav__inner">
         <a href="index.html" class="nav__brand">
           <img src="images/4dkminilogonobg.png" alt="4DK logo">
-          <span>4DK</span>
         </a>
         <ul class="nav__links">
           ${navLinks.map(l => `<li><a href="${l.href}"${isCurrent(l.key)}>${l.label}</a></li>`).join('')}
@@ -44,7 +43,6 @@
         <div class="footer__brand">
           <a href="index.html" class="footer__logo">
             <img src="images/4dkminilogonobg.png" alt="4DK logo">
-            <span>4DK</span>
           </a>
           <p class="footer__tagline">
             4 Dudes and a Keyboard — premium mechanical keyboard modding,

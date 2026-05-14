@@ -168,7 +168,7 @@ p { color: var(--ink-mid); }
   flex-shrink: 0;
 }
 
-.nav__brand img { width: 36px; height: 36px; }
+.nav__brand img { height: 50px; width: auto; }
 
 .nav__links {
   display: flex;
@@ -375,7 +375,7 @@ p { color: var(--ink-mid); }
   color: var(--yellow);
 }
 
-.footer__logo img { width: 48px; height: 48px; }
+.footer__logo img { height: 48px; width: auto; }
 
 .footer__tagline {
   font-size: var(--fs-small);
